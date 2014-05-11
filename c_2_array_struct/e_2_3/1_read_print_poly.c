@@ -1,10 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "1_read_print_poly.h"
+#include "poly_operate.h"
 #include "compare.h"
 
 polynomial terms[MAX_TERMS];
-int avail = 0;					/* the next availiable unit of terms's index */
+int avail = 0;	/* the next availiable unit of terms's index */
 
 void attach(float coefficient, int exponent)	/* add a new term to the array terms */
 {
@@ -56,7 +56,7 @@ void padd(int starta, int finisha, int startb, int finishb,
 	*finishd = avail - 1;
 }
 
-poly_pos read_poly()
+poly_pos read_poly(void)
 {
 	poly_pos read_poly_pos = {avail, -1};
 	float coef = 0;
@@ -66,7 +66,7 @@ poly_pos read_poly()
 	do {
 		printf("Please input the coef and expon of poly:\n");
 		scanf("%f %d", &coef, &expon);
-		attach(coef, expon);
+		pinsert(coef, expon, read_poly_pos.start, avail - 1);
 
 		printf("Do you want to read another item input(y/n)?\n");
 		scanf(" %c", &is_continue);
@@ -82,23 +82,26 @@ void print_poly(int start, int finish)
 {
 	int i = start;
 
-	printf("Each item of the poly is:");
+	printf("Each item of the poly is: ");
 
 	while (i <= finish)
 	{
-		printf(" %.2f %d", terms[i].coef, terms[i].expon);
+		printf("%.0fx^%d", terms[i].coef, terms[i].expon);
 
 		i++;
+
+		if (i <= finish)
+			printf("+");
 	}
 
 	printf("\n");
 }
 
-int main(void)
+/*int main(void)
 {
 	poly_pos position = read_poly();
 
 	print_poly(position.start, position.finish);
 
 	return 0;
-}
+}*/
