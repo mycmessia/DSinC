@@ -18,4 +18,5 @@ void pmult(int, int, int, int, int *, int *);
 void attach(float, int);
 void padd(int, int, int, int, int *, int *);
 void pinsert(float, int, int, int);
+int peval(int start, int finish, int x);
 #endif

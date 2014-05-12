@@ -46,7 +46,7 @@ void pmult(int starta, int finisha, int startb, int finishb,
 	*finishd = avail - 1;
 }
 
-int main(void)
+/*int main(void)
 {
 	poly_pos pos1 = read_poly();
 	print_poly(pos1.start, pos1.finish);
@@ -63,4 +63,4 @@ int main(void)
 	print_poly(pos3.start, pos3.finish);
 
 	return 0;
-}
+}*/
