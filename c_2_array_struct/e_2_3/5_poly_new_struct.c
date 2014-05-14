@@ -1,5 +1,6 @@
 /* A new poly structure, see detail in Page 42 */
 #include <stdio.h>
+#include "../compare.h"
 
 #define MAX_TERMS 101
 #define MAX_POLYS 15
@@ -58,6 +59,91 @@ void print_poly(polynomial poly[])
 	printf("\n");
 }
 
+void pinsert(polynomial poly[], float coef, int expon)
+{
+	int sum = poly[0].expon;
+	int i;
+	
+	for (i = 1; i <= sum; i++)
+	{
+		if (poly[i].expon == expon)
+		{
+			poly[i].coef += coef;
+			return;
+		}
+	}
+
+	poly[0].expon += 1;
+	poly[poly[0].expon].coef = coef;
+	poly[poly[0].expon].expon = expon;
+}
+
+/* 
+ * read poly from poly1 and poly2 and store the result in poly3 
+ */
+void padd(polynomial poly1[], polynomial poly2[], polynomial poly3[])
+{
+	int sum1 = poly1[0].expon;
+	int sum2 = poly2[0].expon;
+	int i = 1, j = 1;
+
+	poly3[0].expon = 0;
+	
+	while (i <= sum1 && j <= sum2) 
+	{
+		switch (COMPARE(poly1[i].expon, poly2[j].expon)) {
+		 case -1:
+			pinsert(poly3, poly2[j].coef, poly2[j].expon);
+			j++;
+			break;
+		 case 0:
+			pinsert(poly3, 
+				poly1[i].coef + poly2[j].coef, 
+				poly1[i].expon);
+			i++;
+			j++;
+			break;
+		 case 1:
+			pinsert(poly3, poly1[i].coef, poly1[i].expon);
+			i++;
+			break;
+		}
+	}
+
+	while (i <= sum1) {
+		pinsert(poly3, poly1[i].coef, poly1[i].expon);
+		i++;
+	}
+
+	while (j <= sum2) {
+		pinsert(poly3, poly2[j].coef, poly2[j].expon);
+		j++;
+	}
+
+	
+}
+
+void pmult(polynomial poly1[], polynomial poly2[], polynomial poly3[])
+{
+	int sum1 = poly1[0].expon;
+	int sum2 = poly2[0].expon;
+
+	poly3[0].expon = 0;
+
+	int i, j;
+	int coef, expon;
+
+	for (i = 1; i <= sum1; i++)
+	{
+		for (j = 1; j <= sum2; j++)
+		{
+			coef = poly1[i].coef * poly2[j].coef;
+			expon = poly1[i].expon + poly2[j].expon;
+			pinsert(poly3, coef, expon);
+		}
+	}
+}
+
 int main(void)
 {
 	int poly_sum = read_poly();
@@ -67,9 +153,16 @@ int main(void)
 	while (i <= poly_sum)
 	{
 		print_poly(&terms[avail - i][0]);
-
 		i++;
 	}
+
+	printf("padd:\n");
+	padd(&terms[0][0], &terms[1][0], &terms[avail++][0]);
+	print_poly(terms[avail - 1]);
+
+	printf("pmult:\n");
+	pmult(&terms[0][0], &terms[1][0], &terms[avail++][0]);
+	print_poly(terms[avail - 1]);
 
 	return 0;
 }
