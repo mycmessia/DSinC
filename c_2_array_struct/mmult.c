@@ -1,4 +1,11 @@
-/* Program 2-8 mmult.c */
+/* 
+ * Program 2-8 mmult.c written by myc
+ *
+ * Through writting this program, I know that if you want to understand a algorithm completely,
+ * the only way is rewriting it by yourself after you know the basic thought of the algorithm,
+ * when you are rewriting it you may meet many problems and you may write it wrong at first,
+ * So, what I want to say is process is important and result not.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include "sparse_matrix.h"
@@ -23,55 +30,55 @@ void storesum(term d[], int *totald, int row, int column, int *sum)
 	}
 }
 
-void mmult(term a[], term b[], term d[])
+void fast_mmult(term a[], term b[], term d[])
 {
-	int rows_a = a[0].row, cols_a = a[0].col, totala = a[0].value;
-	int rows_b = b[0].row, cols_b = b[0].col, totalb = b[0].value;
-	int totald = 0;
-
-	term trans_b[MAX_TERMS];
-	int column;			/* now calc which column of b */
-	int row = a[1].row;		/* now calc which row of a */
-	int row_begin = 1;
-	int sum = 0;
-	int i, j;
-	
-	/* set boundary condition */
-	a[totala + 1].row = rows_a;
-	trans_b[totalb + 1].row = cols_b;
-	trans_b[totalb + 1].col = 0;
-
-	if (cols_a != rows_b) 
+	if (a[0].col != b[0].row)
 	{
-		fprintf(stderr, "Incompatible matrices.\n");
+		printf("Invaild two matrixs.\n");
 		exit(1);
 	}
 
+	term trans_b[MAX_TERMS];
+	int i = -1, j = -1;
+	int totala = a[0].value, totalb = b[0].value, totald = 0;
+	int row = -1, col = -1;
+	int row_begin = -1;
+	int sum = 0;
+
 	fast_transpose(b, trans_b);
 
-	print_sm(trans_b);
+	trans_b[totalb + 1].row = trans_b[0].row;
 
-	for (i = 1; i <= totala;) 
+	for (i = 1; i <= totala;)
 	{
-		column = trans_b[1].row;
-		for (j = 1; j <= totalb + 1;) 
+		row_begin = i;
+		row = a[row_begin].row;
+		col = trans_b[1].row;
+		for (j = 1; j <= totalb;)
 		{
-			/* multiply row of a by column of b */
-			if (a[i].row != row)
+			if (trans_b[j].row != col)
 			{
-				/* when finish calc a row of a */
-				storesum(d, &totald, row, column, &sum);
-				i = row_begin;
-				for (; trans_b[j].row == column; j++)
-					;
-				column = trans_b[j].row;
+				storesum(d, &totald, row, col, &sum);
+				if (j == totalb + 1)
+					break;
+				else
+				{
+					col = trans_b[j].row;
+					i = row_begin;
+				}
 			}
-			else if (trans_b[j].row != column)
+			else if (a[i].row != row)
 			{
-				/* when finish calc a col of b */
-				storesum(d, &totald, row, column, &sum);
-				i = row_begin;
-				column = trans_b[j].row;
+				storesum(d, &totald, row, col, &sum);
+				for (; trans_b[j].row == col; j++)
+					;
+				if (j == totalb + 1)
+					break;
+				else
+				{
+					col = trans_b[j].row;
+					i = row_begin;
+				}
 			}
 			else
 			{
@@ -81,20 +88,21 @@ void mmult(term a[], term b[], term d[])
 						i++;
 						break;
 					case 0:
-						sum += (a[i++].value * trans_b[j++].value);
+						sum += (a[i].value * trans_b[j].value);
+						i++, j++;
 						break;
 					case 1:
 						j++;
 						break;
+			
 				}
 			}
 		}
-		for (; a[i].row; i++)
-			;
-		row_begin = i; row = a[i].row;
-	} /* end of for i <= totala */
+	}
 
-	d[0].row = rows_a;
-	d[0].col = cols_b;
+	storesum(d, &totald, row, col, &sum);
+
 	d[0].value = totald;
+	d[0].col = b[0].col;
+	d[0].row = a[0].row;
 }
