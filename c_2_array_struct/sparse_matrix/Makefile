@@ -1,5 +1,5 @@
-sparse_matrix: mmult.o mread_print_search.o transpose.o sparse_matrix.o
-	gcc mmult.o mread_print_search.o transpose.o sparse_matrix.o -o sparse_matrix
+sparse_matrix.out: mmult.o mread_print_search.o transpose.o sparse_matrix.o
+	gcc mmult.o mread_print_search.o transpose.o sparse_matrix.o -o sparse_matrix.out
 
 mmult.o: mmult.c sparse_matrix.h ../../c_1_basic_concept/compare.h
 	gcc -c mmult.c
