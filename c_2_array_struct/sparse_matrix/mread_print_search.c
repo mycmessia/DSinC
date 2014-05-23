@@ -1,7 +1,7 @@
-#include "../sparse_matrix.h"
 #include <stdio.h>
+#include "sparse_matrix.h"
 
-void read_sm(term a[])
+void mread(term a[])
 {
 	int count = 0;
 	int value_max = 0;	
@@ -31,7 +31,7 @@ void read_sm(term a[])
 	a[0].value = count;
 }
 
-void print_sm(term a[])
+void mprint(term a[])
 {
 	int i;
 	
@@ -41,7 +41,7 @@ void print_sm(term a[])
 	}
 }
 
-void search_sm(term a[], int key, term *res)
+void msearch(term a[], int key, term *res)
 {
 	int i;
 
@@ -55,17 +55,3 @@ void search_sm(term a[], int key, term *res)
 
 	res->row = -1; res->col = -1; res->value = -1;
 }
-
-/*int main(void)
-{
-	term a[MAX_TERMS];
-	term b[MAX_TERMS];
-	
-	read_sm(a);
-	print_sm(a);
-
-	fast_transpose(a, b);
-	print_sm(b);
-
-	return 0;
-}*/

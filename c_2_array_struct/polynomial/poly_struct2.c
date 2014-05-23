@@ -1,6 +1,6 @@
 /* A new poly structure, see detail in Page 42 */
 #include <stdio.h>
-#include "../compare.h"
+#include "../../c_1_basic_concept/compare.h"
 
 #define MAX_TERMS 101
 #define MAX_POLYS 15

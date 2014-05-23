@@ -10,9 +10,9 @@ typedef struct {
 
 void transpose(term a[], term b[]);
 void fast_transpose(term a[], term b[]);
-void read_sm(term a[]);
-void print_sm(term a[]);
-void search_sm(term a[], int key, term *res);
-void mmult(term a[], term b[], term d[]);
+void mread(term a[]);
+void mprint(term a[]);
+void msearch(term a[], int key, term *res);
+void fast_mmult(term a[], term b[], term d[]);
 
 #endif

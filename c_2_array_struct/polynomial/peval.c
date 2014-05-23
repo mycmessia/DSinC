@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "poly_operate.h"
+#include "polynomial.h"
 
 extern polynomial terms[MAX_TERMS];
-extern int avail;	/* the next availiable unit of terms's index */
+extern int avail;
 
 /* Horner rule */
 int peval(int start, int finish, int x)
@@ -12,7 +12,10 @@ int peval(int start, int finish, int x)
 	int coef_t = 0;
 	int i = start;
 
-	/* find the max expon of the poly which determine loop count */
+	/*
+	 * find the max expon of the poly 
+	 * which determine loop count 
+	 */
 	for (i = start; i <= finish; i++)
 	{
 		if (terms[i].expon > expon_t)
@@ -38,17 +41,4 @@ int peval(int start, int finish, int x)
 	}
 	
 	return sum;
-}
-
-int main(void)
-{
-	poly_pos pos = read_poly();
-
-	print_poly(pos.start, pos.finish);
-
-	int sum = peval(pos.start, pos.finish, 3);
-
-	printf("The sum is %d\n", sum);
-
-	return 0;
 }

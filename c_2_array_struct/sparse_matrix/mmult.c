@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "sparse_matrix.h"
-#include "compare.h"
+#include "../../c_1_basic_concept/compare.h"
 
 void storesum(term d[], int *totald, int row, int column, int *sum)
 {

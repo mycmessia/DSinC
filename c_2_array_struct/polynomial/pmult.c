@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "poly_operate.h"
+#include "polynomial.h"
 
 extern polynomial terms[MAX_TERMS];
-extern int avail;	/* the next availiable unit of terms's index */
+extern int avail;
 
 void pinsert(float coef, int expon, int start, int finish)
 {
@@ -45,22 +45,3 @@ void pmult(int starta, int finisha, int startb, int finishb,
 	
 	*finishd = avail - 1;
 }
-
-/*int main(void)
-{
-	poly_pos pos1 = read_poly();
-	print_poly(pos1.start, pos1.finish);
-
-	poly_pos pos2 = read_poly();
-	print_poly(pos2.start, pos2.finish);
-
-	poly_pos pos3;
-
-	pmult(pos1.start, pos1.finish, pos2.start, pos2.finish,
-	      &pos3.start, &pos3.finish);
-
-	printf("mult poly:\n");
-	print_poly(pos3.start, pos3.finish);
-
-	return 0;
-}*/
