@@ -3,7 +3,7 @@
 
 int a, b, c;
 
-void p_num(int a, int b, int c)
+void p_abc(int a, int b, int c)
 {
 	int arr[3] = {a, -1, -1};
 
@@ -35,7 +35,7 @@ void p_num(int a, int b, int c)
 	printf("%d %d %d\n", arr[0], arr[1], arr[2]);
 }
 
-void p_num_web(int a, int b, int c)
+void p_abc_web(int a, int b, int c)
 {
 	int t = 0;
 
@@ -67,7 +67,7 @@ int main(void)
 {
 	scanf("%d %d %d", &a, &b, &c);
 
-	p_num_web(a, b, c);		
+	p_abc_web(a, b, c);		
 
 	return 0;
 }
