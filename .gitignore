@@ -1,3 +1,4 @@
 *.out
 *.h.gch
 *.o
+.DS_Store
