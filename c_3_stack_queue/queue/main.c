@@ -1,26 +1,28 @@
-#include "queue.h"
+#include "deque.h"
 
 int main(void)
 {
+	extern double_ended_queue deque;
+	deque.length = 0;
+	deque.head = 0;
+	deque.rear = -1;
+	pde pdeque = &deque;
+
 	element e1 = {1}, e2 = {2}, e3 = {3};
 
-	/*unshift(e3);
-	unshift(e2);
-	unshift(e1);
-	pop();
-	pop();
-	pop();*/
-	
-	push(e1);
-	push(e2);
-	push(e3);
-	p_de_queue();
-	shift();
-	p_de_queue();
-	shift();
-	p_de_queue();
-	shift();
-	p_de_queue();
+	push(pdeque, e1);
+	//push(pdeque, e2);
+	//pop(pdeque);
+
+	//print_deque(pdeque);
+
+	unshift(pdeque, e1);
+	//unshift(pdeque, e2);
+	//shift(pdeque);
+
+	push(pdeque, e3);
+
+	print_deque(pdeque);
 
 	return 0;
 }
