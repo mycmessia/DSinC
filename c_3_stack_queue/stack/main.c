@@ -7,10 +7,8 @@ int main(void)
 	
 	add(&e1);
 	add(&e2);
-
-	pstack();
-
-	printf("NULL is %d\n", NULL);
+	delete();
+	print_stack();
 
 	return 0;
 }

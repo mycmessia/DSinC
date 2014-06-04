@@ -35,7 +35,7 @@ pe delete(void)
 	return stack[top--];
 }
 
-void pstack(void)
+void print_stack(void)
 {
 	int i = 0;
 

@@ -11,6 +11,6 @@ int is_empty(void);
 int is_full(void);
 void add(pe pointer);
 pe delete();
-void pstack(void);
+void print_stack(void);
 
 #endif
