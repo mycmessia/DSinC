@@ -1,5 +1,5 @@
 string.out: main.o string.o kmp.o
-	gcc  main.o string.o kmp.o -o string.out
+	gcc  $^ -o $@
 
 main.o: string.h kmp.h
 string.o: string.h
