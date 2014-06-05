@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "stack.h"
-pe stack[MAX_STACK_SIZE];
+
+element stack[MAX_STACK_SIZE];
 int top = -1;
 
 int is_empty(void)
@@ -13,7 +14,7 @@ int is_full(void)
 	return (top == MAX_STACK_SIZE - 1 ? 1 : 0);
 }
 
-void add(pe pointer)
+void add(element item)
 {
 	if (is_full())
 	{
@@ -21,10 +22,10 @@ void add(pe pointer)
 		return;
 	}
 
-	stack[++top] = pointer;
+	stack[++top] = item;
 }
 
-pe delete(void)
+element delete(void)
 {
 	if (is_empty())
 	{
@@ -41,6 +42,6 @@ void print_stack(void)
 
 	for (i = 0; i <= top; i++)
 	{
-		printf("stack[%d].key = %d\n", i, stack[i]->key);
+		printf("stack[%d].key = %d\n", i, stack[i].key);
 	}
 }
