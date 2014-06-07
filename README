@@ -3,3 +3,12 @@ This is a project about the solutions of book
 so there must be some solutions which aren't good enough, even have bugs. 
 If you want to help this project be better, 
 please contact me by mycmessia@qq.com || mycmessia@gmail.com, thanks.
+
+Coding Style and some tips:
+
+1. Write a Makefile unless the project only has one file,
+   when the project has a Makefile, you can input ./make to get the *.out
+   or you can input gcc *.c -o *.out.
+
+2. If the message of print function is a complete sentence, please make
+   sure it is end with a '.'.
