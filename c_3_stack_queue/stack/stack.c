@@ -4,22 +4,24 @@
 element stack[MAX_STACK_SIZE];
 int top = -1;
 
-int is_empty(void)
+element is_empty(void)
 {
-	return (top < 0 ? 1 : 0);
+	fprintf(stderr, "stack is empty, delete failed.\n");
+	element err_empty = {-1, -1, -1};
+	return err_empty;
 }
 
-int is_full(void)
+void is_full(void)
 {
-	return (top == MAX_STACK_SIZE - 1 ? 1 : 0);
+	fprintf(stderr, "stack is full, add failed.\n");
+	return;
 }
 
 void add(element item)
 {
-	if (is_full())
+	if (top == MAX_STACK_SIZE - 1)
 	{
-		fprintf(stderr, "stack is full, add failed.\n");
-		return;
+		return is_full();
 	}
 
 	stack[++top] = item;
@@ -27,10 +29,9 @@ void add(element item)
 
 element delete(void)
 {
-	if (is_empty())
+	if (top < 0)
 	{
-		fprintf(stderr, "stack is empty, delete failed.\n");
-		return;
+		return is_empty();
 	}
 	
 	return stack[top--];

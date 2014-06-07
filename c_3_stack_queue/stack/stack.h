@@ -9,7 +9,7 @@ typedef struct {
 int is_empty(void);
 int is_full(void);
 
-void add(element pointer);
+void add(element item);
 element delete();
 
 void print_stack(void);
