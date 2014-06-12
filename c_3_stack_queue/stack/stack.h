@@ -6,7 +6,7 @@ typedef struct {
 	int key;
 } element;
 
-int is_empty(void);
+element is_empty(void);
 int is_full(void);
 
 void add(element item);
