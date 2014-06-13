@@ -3,7 +3,7 @@
 #include "expression.h"
 
 /* a string of expr end with a \n or a space */
-char expr[MAX_EXPR_SIZE] = "12+7*\n";
+char expr[MAX_EXPR_SIZE] = "(1+2)*7\n";
 
 /* evaluate a postfix expression */
 int eval(void)
@@ -72,4 +72,49 @@ precedence get_token(char *symbol, int *n)
 		case '\n': return eos;
 		default: return operand;
 	}
+}
+
+void print_token(precedence token)
+{
+	switch (token)
+	{
+		case lparen:	printf("("); break;
+		case rparen:	printf(")"); break;
+		case plus:	printf("+"); break;
+		case minus:	printf("-"); break;
+		case divide:	printf("/"); break;
+		case times:	printf("*"); break;
+		case mod:	printf("%"); break;
+		default: 	printf(""); break;
+	}
+}
+
+void in2post(void)
+{
+	char symbol;
+	int n = 0;
+	precedence token = get_token(&symbol, &n);
+	add(eos);
+
+	for (; token != eos; token = get_token(&symbol, &n))
+	{
+		if (token == operand)
+			printf("%c", symbol);
+		else if (token == rparen)
+		{
+			while (get_top() != lparen)
+				print_token(delete());
+			delete();
+		}
+		else
+		{
+			while (isp[get_top()] >= icp[token])
+				print_token(delete());
+			add(token);
+		}
+	}
+	
+	while ((token = delete()) != eos)
+		print_token(token);
+	printf("\n");
 }

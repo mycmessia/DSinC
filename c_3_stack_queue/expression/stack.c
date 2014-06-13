@@ -36,6 +36,11 @@ int delete(void)
 	return stack[top--];
 }
 
+int get_top(void)
+{
+	return stack[top];
+}
+
 void print_stack(void)
 {
 	int i = 0;

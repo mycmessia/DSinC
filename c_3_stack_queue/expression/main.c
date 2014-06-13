@@ -3,7 +3,8 @@
 
 int main(void)
 {
-	printf("The result of expr is %d.\n", eval());
+	//printf("The result of expr is %d.\n", eval());
+	in2post();
 
 	return 0;
 }

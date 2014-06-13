@@ -7,8 +7,8 @@ int is_empty(void);
 void is_full(void);
 
 void add(int item);
-int delete();
-
+int delete(void);
+int get_top(void);
 void print_stack(void);
 
 #endif
