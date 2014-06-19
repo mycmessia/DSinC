@@ -51,6 +51,7 @@ precedence get_token(char exp[], char *symbol, int *n)
 		case '/': return divide;
 		case '*': return times;
 		case '%': return mod;
+		case '\0': return eos;
 		case ' ': return eos;
 		case '\n': return eos;
 		default: return operand;
@@ -77,54 +78,78 @@ int post_eval(char exp[])
 	return sdelete(pstack_res);
 }
 
-void print_token(precedence token)
+char get_symbol(precedence token)
 {
 	switch (token)
 	{
-		case lparen:	printf("("); break;
-		case rparen:	printf(")"); break;
-		case plus:	printf("+"); break;
-		case minus:	printf("-"); break;
-		case divide:	printf("/"); break;
-		case times:	printf("*"); break;
-		case mod:	printf("%"); break;
-		default: 	printf(""); break;
+		case lparen:	return '(';
+		case rparen:	return ')';
+		case plus:	return '+';
+		case minus:	return '-';
+		case divide:	return '/';
+		case times:	return '*';
+		case mod:	return '%';
+		default: 	return ' ';
 	}
 }
 
-void in2post(char exp[])
+void in2post(char exp_in[], char exp_out[])
 {
 	char symbol;
-	int n = 0;
+	int n = 0, i = 0;
 	int top = -1;
-	precedence token = get_token(exp, &symbol, &n);
+	precedence token = get_token(exp_in, &symbol, &n);
 	pstack pstack_tmp = create_stack();
 	
 	sadd(pstack_tmp, eos);
-	for (; token != eos; token = get_token(exp, &symbol, &n))
+	for (; token != eos; token = get_token(exp_in, &symbol, &n))
 	{		
 		if (token == operand)
-			printf("%c", symbol);
+			exp_out[i++] = symbol;
 		else if (token == rparen)
 		{
 			top = pstack_tmp->top;
 			while (pstack_tmp->space[top] != lparen)
-				print_token(sdelete(pstack_tmp));
+				exp_out[i++] = get_symbol(sdelete(pstack_tmp));
 			sdelete(pstack_tmp);
 		}
 		else
 		{
 			top = pstack_tmp->top;
-			while (outp[pstack_tmp->space[pstack_tmp->top]] >=
-				inp[token])
+			while (inp[pstack_tmp->space[pstack_tmp->top]] >=
+				outp[token])
 			{
-				print_token(sdelete(pstack_tmp));
+				exp_out[i++] = get_symbol(sdelete(pstack_tmp));
 			}
 			sadd(pstack_tmp, token);
 		}
 	}
 
 	while ((token = sdelete(pstack_tmp)) != eos)
-		print_token(token);
-	printf("\n");
+		exp_out[i++] = get_symbol(token);
+	
+	exp_out[i] = '\0';
+}
+
+void in2pre(char exp_in[], char exp_out[])
+{
+	char exp_tmp[MAX_EXPR_SIZE] = {'\0'};
+	pstack pstack_tmp = create_stack();
+	int i = 0;	
+
+	in2post(exp_in, exp_tmp);
+
+	while (exp_tmp[i] != '\0')
+	{
+		sadd(pstack_tmp, exp_tmp[i] - '0');
+		i++;
+	}
+
+	i = 0;
+	while (!is_empty(pstack_tmp))
+	{
+		exp_out[i++] = sdelete(pstack_tmp) + '0';
+	}
+	
+	exp_out[i] = '\0';
 }
