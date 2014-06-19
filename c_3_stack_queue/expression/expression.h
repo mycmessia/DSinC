@@ -8,5 +8,7 @@ typedef enum {lparen, rparen, plus, minus, times, divide,
 int calc_op(pstack pstack_res, precedence token);
 precedence get_token(char exp[], char *symbol, int *n);
 int post_eval(char exp[]);
+void in2post(char exp[]);
+void print_token(precedence token);
 
 #endif
