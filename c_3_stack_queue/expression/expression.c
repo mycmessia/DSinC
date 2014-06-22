@@ -93,7 +93,7 @@ char get_symbol(precedence token)
 	}
 }
 
-void in2post(char exp_in[], char exp_out[])
+int in2post(char exp_in[], char exp_out[])
 {
 	char symbol;
 	int n = 0, i = 0;
@@ -129,27 +129,23 @@ void in2post(char exp_in[], char exp_out[])
 		exp_out[i++] = get_symbol(token);
 	
 	exp_out[i] = '\0';
+
+	return i;
 }
 
-void in2pre(char exp_in[], char exp_out[])
+int in2pre(char exp_in[], char exp_out[])
 {
 	char exp_tmp[MAX_EXPR_SIZE] = {'\0'};
 	pstack pstack_tmp = create_stack();
-	int i = 0;	
+	int i = 0, length = 0;	
 
-	in2post(exp_in, exp_tmp);
+	length = in2post(exp_in, exp_tmp);
 
-	while (exp_tmp[i] != '\0')
+	exp_out[length] = '\0';
+	for (i = 0; i < length; i++)
 	{
-		sadd(pstack_tmp, exp_tmp[i] - '0');
-		i++;
+		exp_out[length - i - 1] = exp_tmp[i];
 	}
 
-	i = 0;
-	while (!is_empty(pstack_tmp))
-	{
-		exp_out[i++] = sdelete(pstack_tmp) + '0';
-	}
-	
-	exp_out[i] = '\0';
+	return length;	
 }
