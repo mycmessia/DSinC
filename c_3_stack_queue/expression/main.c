@@ -6,7 +6,7 @@ int main(void)
 {
 	/* a string of expr end with a \n or a space */
 	//char expr[MAX_EXPR_SIZE] = "/*193\n";	//prefix
-	char exp_in[MAX_EXPR_SIZE] = "2*3-4\0";	//postfix
+	char exp_in[MAX_EXPR_SIZE] = "2*(3-4)\0";	//postfix
 	char exp_out[MAX_EXPR_SIZE] = {'\0'};	
 
 	printf("infix is %s\n", exp_in);

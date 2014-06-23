@@ -97,35 +97,34 @@ int in2post(char exp_in[], char exp_out[])
 {
 	char symbol;
 	int n = 0, i = 0;
-	int top = -1;
 	precedence token = get_token(exp_in, &symbol, &n);
-	pstack pstack_tmp = create_stack();
+	pstack pstack_t = create_stack();
 	
-	sadd(pstack_tmp, eos);
+	sadd(pstack_t, eos);
 	for (; token != eos; token = get_token(exp_in, &symbol, &n))
 	{		
 		if (token == operand)
 			exp_out[i++] = symbol;
 		else if (token == rparen)
 		{
-			top = pstack_tmp->top;
-			while (pstack_tmp->space[top] != lparen)
-				exp_out[i++] = get_symbol(sdelete(pstack_tmp));
-			sdelete(pstack_tmp);
+			while (pstack_t->space[pstack_t->top] != lparen)
+			{
+				exp_out[i++] = get_symbol(sdelete(pstack_t));
+			}
+			sdelete(pstack_t);
 		}
 		else
 		{
-			top = pstack_tmp->top;
-			while (inp[pstack_tmp->space[pstack_tmp->top]] >=
+			while (inp[pstack_t->space[pstack_t->top]] >=
 				outp[token])
 			{
-				exp_out[i++] = get_symbol(sdelete(pstack_tmp));
+				exp_out[i++] = get_symbol(sdelete(pstack_t));
 			}
-			sadd(pstack_tmp, token);
+			sadd(pstack_t, token);
 		}
 	}
 
-	while ((token = sdelete(pstack_tmp)) != eos)
+	while ((token = sdelete(pstack_t)) != eos)
 		exp_out[i++] = get_symbol(token);
 	
 	exp_out[i] = '\0';
@@ -136,7 +135,6 @@ int in2post(char exp_in[], char exp_out[])
 int in2pre(char exp_in[], char exp_out[])
 {
 	char exp_tmp[MAX_EXPR_SIZE] = {'\0'};
-	pstack pstack_tmp = create_stack();
 	int i = 0, length = 0;	
 
 	length = in2post(exp_in, exp_tmp);
