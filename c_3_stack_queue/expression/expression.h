@@ -11,5 +11,7 @@ int post_eval(char exp[]);
 int in2post(char exp_in[], char exp_out[]);
 void print_token(precedence token);
 int in2pre(char exp_in[], char exp_out[]);
+int post2in(char exp_in[], char exp_out[]);
+void add_lparen(char exp[], int length);
 
 #endif
