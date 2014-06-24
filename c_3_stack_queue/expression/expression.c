@@ -78,8 +78,6 @@ int post_eval(char exp[])
 	return sdelete(pstack_res);
 }
 
-/* TODO pre_eval */
-
 char get_symbol(precedence token)
 {
 	switch (token)
@@ -153,49 +151,51 @@ int in2pre(char exp_in[], char exp_out[])
 /* trans a postfix to a infix with the most parenthesis */
 int post2in(char exp_in[], char exp_out[])
 {
-	pstack poperand = create_stack();
-	int first_operator = 1;
-	int  n = 0, i = 0;
-	char symbol = 0, c1, c2;
+	int token, n = 0, i = 0;
+	char symbol;
 
-	int token = get_token(exp_in, &symbol, &n);
+	token = get_token(exp_in, &symbol, &n);
 	for (; token != eos; token = get_token(exp_in, &symbol, &n))
 	{
 		if (token == operand)
-			sadd(poperand, symbol - '0');
+			exp_out[i++] = symbol;
 		else
 		{
-			add_lparen(exp_out, i);
-			i++;
-			if (first_operator && !is_empty(poperand))
-			{
-				c1 = sdelete(poperand) + '0';
-				c2 = sdelete(poperand) + '0';
-				exp_out[i++] = c2;
-				exp_out[i++] = get_symbol(token);
-				exp_out[i++] = c1;
-				first_operator = 0;
-			}
-			else
-			{
-				exp_out[i++] = get_symbol(token);
-				exp_out[i++] = sdelete(poperand) + '0';
-			}
-			exp_out[i++] = get_symbol(rparen);
+				
 		}
 	}
-
-	return i;
 }
 
-/* here use doubly queue may be better */
-void add_lparen(char exp[], int i)
+void get_operands(char exp[], int length, int *s1, int *e1, int *s2, int *e2)
 {
-	while (i > 0)
+	int i = length - 1;
+	int paren_counter = 0;
+	int operand_index = 2;
+	
+	*e2 = length - 1;
+
+	while (i >= 0)
 	{
-		exp[i] = exp[i - 1];
+		if (exp[i] == get_symbol(rparen))
+			paren_counter++;
+		else
+		{ 
+			if (exp[i] == get_symbol(lparen))
+				paren_counter--;
+			
+			if (paren_counter == 0)
+			{
+				if (operand_index == 2)
+				{
+					*s2 = i;
+					*e1 = i - 1;
+					operand_index = 1;
+				}
+				else
+					*s1 = i;
+			}
+		}
+
 		i--;
 	}
-
-	exp[0] = get_symbol(lparen);
 }

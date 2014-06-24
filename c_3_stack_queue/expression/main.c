@@ -4,23 +4,12 @@
 
 int main(void)
 {
-	/* a string of expr end with a \n or a space */
-	char exp_in[MAX_EXPR_SIZE] = "23-4/\0";	//postfix
-	char exp_out[MAX_EXPR_SIZE] = {'\0'};	
+	int s1, e1, s2, e2;
+	char exp[MAX_EXPR_SIZE] = "(3+5)((2+1)*5)";
 
-	/*
-	printf("infix is %s\n", exp_in);
-	in2post(exp_in, exp_out);
-	printf("postfix is %s\n", exp_out);
-	in2pre(exp_in, exp_out);
-	printf("prefix is %s\n", exp_out);
-	*/
+	get_operands(exp, 14, &s1, &e1, &s2, &e2);
 	
-	printf("postfix is %s\n", exp_in);
-	post2in(exp_in, exp_out);
-	printf("infix is %s\n", exp_out);
-	in2post(exp_out, exp_in);
-	printf("in2post postfix is %s\n", exp_in);
+	printf("s1 = %d, e1 = %d, s2 = %d, e2 = %d\n", s1, e1, s2, e2);
 
 	return 0;
 }
