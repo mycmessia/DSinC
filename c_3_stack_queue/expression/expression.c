@@ -151,38 +151,75 @@ int in2pre(char exp_in[], char exp_out[])
 /* trans a postfix to a infix with the most parenthesis */
 int post2in(char exp_in[], char exp_out[])
 {
-	int token, n = 0, i = 0;
+	int token, n = 0, len = 0;
 	char symbol;
 
 	token = get_token(exp_in, &symbol, &n);
 	for (; token != eos; token = get_token(exp_in, &symbol, &n))
 	{
 		if (token == operand)
-			exp_out[i++] = symbol;
+			exp_out[len++] = symbol;
 		else
 		{
-				
+			int s1, e1, s2, e2;
+			get_operands(exp_out, len, &s1, &e1, &s2, &e2);	
+			
+			/* add operator */
+			int i = len;
+			while (i > s2)
+			{
+				exp_out[i] = exp_out[i - 1];
+				i--;
+			}
+			exp_out[i] = get_symbol(token);
+			len++;
+
+			/* add paren */
+			i = len;
+			while (i > s1)
+			{
+				exp_out[i] = exp_out[i - 1];
+				i--;
+			}
+			exp_out[len + 1] = get_symbol(rparen);
+			exp_out[i] = get_symbol(lparen);
+			len += 2;
 		}
 	}
+	exp_out[len] = '\0';
+
+	return len;
 }
 
-void get_operands(char exp[], int length, int *s1, int *e1, int *s2, int *e2)
+void get_operands(char exp[], int len, int *s1, int *e1, int *s2, int *e2)
 {
-	int i = length - 1;
 	int paren_counter = 0;
 	int operand_index = 2;
-	
-	*e2 = length - 1;
+	int i = len - 1;
 
-	while (i >= 0)
+	*e2 = len - 1;
+
+	while (i >= 0 && operand_index != 0)
 	{
 		if (exp[i] == get_symbol(rparen))
+		{
+			/* i != *e2 make sure the i + 1 is valid */
+			if (i != *e2 && paren_counter == 0)
+			{
+				if (operand_index == 2)
+				{
+					*s2 = i + 1;
+					*e1 = i;
+					operand_index = 1;
+				}
+			}
 			paren_counter++;
+		}
 		else
-		{ 
+		{
 			if (exp[i] == get_symbol(lparen))
 				paren_counter--;
-			
+
 			if (paren_counter == 0)
 			{
 				if (operand_index == 2)
@@ -192,10 +229,12 @@ void get_operands(char exp[], int length, int *s1, int *e1, int *s2, int *e2)
 					operand_index = 1;
 				}
 				else
+				{
 					*s1 = i;
+					operand_index = 0;
+				}
 			}
 		}
-
 		i--;
-	}
+	}	
 }
