@@ -98,8 +98,7 @@ void interval_delete(list_pointer *ptr)
 
 void merge_list(list_pointer *ptr1, list_pointer *ptr2, list_pointer *ptr3)
 {
-	list_pointer pt3 = NULL, pt1 = *ptr1, pt2 = *ptr2;
-	
+	list_pointer pt3 = NULL, pt1 = *ptr1, pt2 = *ptr2;	
 
 	if (pt1->data > pt2->data)
 	{
@@ -137,4 +136,54 @@ void merge_list(list_pointer *ptr1, list_pointer *ptr2, list_pointer *ptr3)
 
 	*ptr1 = NULL;
 	*ptr2 = NULL;
+}
+
+void move_rightn(list_pointer *ptr, list_pointer *left, int n)
+{
+	list_pointer pt_ptr = *ptr;
+	list_pointer pt_left = *left;
+	
+	while (n)
+	{
+		*left = pt_ptr;
+		*ptr = pt_ptr->link;
+
+		if (!*ptr)
+		{
+			fprintf(stderr, "no space to move right.\n");
+			return;
+		}	
+
+		(*left)->link = pt_left;
+
+		pt_ptr = *ptr;
+		pt_left = *left;
+
+		n--;
+	}
+}
+
+void move_leftn(list_pointer *ptr, list_pointer *left, int n)
+{
+	list_pointer pt_ptr = *ptr;
+	list_pointer pt_left = *left;
+
+	while (n)
+	{
+		*ptr = pt_left;
+		*left = pt_left->link;
+
+		if (!*left)
+		{
+			fprintf(stderr, "no space to move left.\n");
+			return;
+		}	
+
+		(*ptr)->link = pt_ptr;
+
+		pt_ptr = *ptr;
+		pt_left = *left;
+
+		n--;
+	}
 }
