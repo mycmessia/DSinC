@@ -95,3 +95,46 @@ void interval_delete(list_pointer *ptr)
 		ptmp = ptmp->link;
 	}
 }
+
+void merge_list(list_pointer *ptr1, list_pointer *ptr2, list_pointer *ptr3)
+{
+	list_pointer pt3 = NULL, pt1 = *ptr1, pt2 = *ptr2;
+	
+
+	if (pt1->data > pt2->data)
+	{
+		*ptr3 = pt2;
+		pt2 = pt2->link;
+	}
+	else
+	{
+		*ptr3 = pt1;
+		pt1 = pt1->link;
+	}
+
+	pt3 = *ptr3;
+	
+	while (pt1 && pt2)
+	{
+		if (pt1->data > pt2->data)
+		{
+			pt3->link = pt2;
+			pt2 = pt2->link;
+		}
+		else
+		{
+			pt3->link = pt1;
+			pt1 = pt1->link;
+		}
+
+		pt3 = pt3->link;
+	}
+
+	if (pt1)
+		pt3->link = pt1;
+	else
+		pt3->link = pt2;
+
+	*ptr1 = NULL;
+	*ptr2 = NULL;
+}

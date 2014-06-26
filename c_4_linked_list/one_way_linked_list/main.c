@@ -3,21 +3,25 @@
 
 int main(void)
 {
-	list_pointer ptr = NULL;
+	list_pointer ptr1 = NULL;
+	list_pointer ptr2 = NULL;
 
-	insert(&ptr, 10);
-	insert(&ptr, 20);
-	//insert(&ptr, 30);
-	//insert(&ptr, 40);
-	//insert(&ptr, 50);
+	insert(&ptr1, 50);
+	insert(&ptr1, 30);
+	insert(&ptr1, 10);
 
-	print_list(ptr);
+	insert(&ptr2, 60);
+	insert(&ptr2, 40);
+	insert(&ptr2, 20);
 
-	printf("length is %d\n", length(ptr));
+	list_pointer ptr3 = NULL;
 
-	interval_delete(&ptr);
+	merge_list(&ptr1, &ptr2, &ptr3);
 
-	print_list(ptr);
+	ptr1 = NULL;
+	ptr2 = NULL;
+
+	print_list(ptr3);
 
 	return 0;
 }

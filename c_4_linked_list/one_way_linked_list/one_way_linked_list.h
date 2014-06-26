@@ -22,4 +22,6 @@ int length(list_pointer ptr);
 
 void interval_delete(list_pointer *ptr);
 
+void merge_list(list_pointer *ptr1, list_pointer *ptr2, list_pointer *ptr3);
+
 #endif
