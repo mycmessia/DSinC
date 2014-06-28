@@ -139,11 +139,11 @@ int in2pre(char exp_in[], char exp_out[])
 
 	length = in2post(exp_in, exp_tmp);
 
-	exp_out[length] = '\0';
 	for (i = 0; i < length; i++)
 	{
 		exp_out[length - i - 1] = exp_tmp[i];
 	}
+	exp_out[length] = '\0';
 
 	return length;	
 }
