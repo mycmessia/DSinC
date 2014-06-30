@@ -1,52 +1,40 @@
-#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "stack.h"
 
-int stack[MAX_STACK_SIZE];
-int top = -1;
-
-int is_empty(void)
+void init_stack(pstack stack_pointer)
 {
-	fprintf(stderr, "stack is empty, delete failed.\n");
-	return 1;
+	stack_pointer->top = -1;
+	memset(stack_pointer->space, 0, MAX_STACK_SIZE * sizeof(int));
 }
 
-void is_full(void)
+pstack create_stack(void)
 {
-	fprintf(stderr, "stack is full, add failed.\n");
-	return;
+	pstack stack_pointer = (pstack)malloc(sizeof(stack));
+	init_stack(stack_pointer);
+	return stack_pointer;
 }
 
-void add(int item)
+int is_full(pstack stack_pointer)
 {
-	if (top == MAX_STACK_SIZE - 1)
-	{
-		return is_full();
-	}
-
-	stack[++top] = item;
+	if (stack_pointer->top == MAX_STACK_SIZE)
+		return 1;
+	return 0;
 }
 
-int delete(void)
+int is_empty(pstack stack_pointer)
 {
-	if (top < 0)
-	{
-		return is_empty();
-	}
-	
-	return stack[top--];
+	if (stack_pointer->top == -1)
+		return 1;
+	return 0;
 }
 
-int get_top(void)
+void sadd(pstack stack_pointer, int item)
 {
-	return stack[top];
+	stack_pointer->space[++stack_pointer->top] = item;
 }
 
-void print_stack(void)
+int sdelete(pstack stack_pointer)
 {
-	int i = 0;
-
-	for (i = 0; i <= top; i++)
-	{
-		printf("stack[%d].key = %d\n", i, stack[i]);
-	}
+	return stack_pointer->space[stack_pointer->top--];
 }
