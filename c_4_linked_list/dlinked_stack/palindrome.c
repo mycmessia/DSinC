@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "dlinked_stack.h"
 
 int is_palin(char *str, int len, stack_pointer *top)
@@ -14,11 +15,11 @@ int is_palin(char *str, int len, stack_pointer *top)
 
 	if (i % 2) i++;
 
-	while (IS_EMPTY(top))
+	while (!IS_EMPTY(*top))
 	{
 		c = delete(top).key + '0';
 		
-		if (c != str[i])
+		if (c != str[i++])
 			return 0;
 	}
 

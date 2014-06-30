@@ -13,8 +13,8 @@ typedef struct _stack {
 	stack_pointer link;
 } stack;
 
-#define IS_EMPTY(pointer) (!(pointer))
-#define IS_FULL(pointer) (!(pointer))
+#define IS_EMPTY(pointer) (!(pointer))	/* if the stack is empty */
+#define IS_FULL(pointer) (!(pointer))	/* if the memory is full */
 
 void add(stack_pointer *top, element item);
 element delete(stack_pointer *top);
