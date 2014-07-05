@@ -7,7 +7,7 @@ int top = -1;
 element is_empty(void)
 {
 	fprintf(stderr, "stack is empty, delete failed.\n");
-	element err_empty = {-1, -1, -1};
+	element err_empty = {-1};
 	return err_empty;
 }
 

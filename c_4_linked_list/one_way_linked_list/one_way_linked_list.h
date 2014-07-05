@@ -24,4 +24,8 @@ void interval_delete(list_pointer *ptr);
 
 void merge_list(list_pointer *ptr1, list_pointer *ptr2, list_pointer *ptr3);
 
+void move_rightn(list_pointer *ptr, list_pointer *left, int n);
+
+void move_leftn(list_pointer *ptr, list_pointer *left, int n);
+
 #endif
