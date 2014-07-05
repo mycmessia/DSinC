@@ -7,7 +7,7 @@ typedef struct {
 } element;
 
 element is_empty(void);
-int is_full(void);
+void is_full(void);
 
 void add(element item);
 element delete();
