@@ -10,6 +10,11 @@ typedef struct {
 	threaded_pointer right_child;
 }
 
+/* find the inorder sucessor of thread_pointer tree *//
+threaded_pointer insucc(threaded_pointer tree);
+
+void insert_right(threaded_pointer parent, threaded_pointer child);
+
 void insert_left(threaded_pointer parent, threaded_pointer child);
 
 #endif
