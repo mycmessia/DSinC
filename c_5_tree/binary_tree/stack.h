@@ -5,13 +5,13 @@
 
 #include "binary_tree.h"
 
-typedef tree_pointer element;
+#define IS_FULL(p) (!p)
 
-element is_empty(void);
+tree_pointer is_empty(void);
 void is_full(void);
 
-void add(element item);
-element delete();
+void add(tree_pointer item);
+tree_pointer delete();
 
 void print_stack(void);
 

@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "queue.h"
-#include "two_branch_tree.h"
+#include "binary_tree.h"
 
 static tree_pointer queue[MAX_QUEUE_SIZE];
 static int head = -1, rear = 0, length = 0;
 
 void addq(tree_pointer ptr)
 {
-	if (lenght == MAX_QUEUE_SIZE)
+	if (length == MAX_QUEUE_SIZE)
 	{
 		fprintf(stderr, "The queue is full.\n");
 		exit(1);

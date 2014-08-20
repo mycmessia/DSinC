@@ -1,5 +1,7 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "stack.h"
+#include "queue.h"
 #include "binary_tree.h"
 
 void inorder(tree_pointer ptr)
@@ -75,12 +77,12 @@ void iter_postorder(tree_pointer ptr)
 			if (ptr->right_child && !is_added(ptr->right_child))
 			{
 				add(ptr->right_child);
-				ptr = ptr->right;
+				ptr = ptr->right_child;
 			}
 			else if (ptr->left_child && !is_added(ptr->left_child))
 			{
 				add(ptr->left_child);
-				ptr = ptr->left;
+				ptr = ptr->left_child;
 			}
 			else
 				ptr = NULL;
@@ -92,7 +94,7 @@ void iter_postorder(tree_pointer ptr)
 
 			if ((!ptr->left_child && !ptr->right_child) || 
 			    (is_added(ptr->left_child) && is_added(ptr->right_child)))
-				printf("%d");
+				printf("%d", ptr->data);
 			else if (!is_added(ptr))
 				add(ptr);
 		}
@@ -102,9 +104,10 @@ void iter_postorder(tree_pointer ptr)
 }
 
 /* check if the ptr has been added to the stack */
-int is_added(node_pointer ptr)
+int is_added(tree_pointer ptr)
 {
-	
+	//TODO finish the func
+	return 1;	
 }
 
 void level_order(tree_pointer ptr)
@@ -128,7 +131,7 @@ void level_order(tree_pointer ptr)
 	}
 }
 
-void copy(tree_pointer original)
+tree_pointer copy(tree_pointer original)
 {
 	tree_pointer temp;
 	
@@ -163,7 +166,7 @@ int equal(tree_pointer first, tree_pointer second)
 	);
 }
 
-void swqp_tree(tree_pointer ptr)
+void swap_tree(tree_pointer ptr)
 {
 	if (ptr)
 	{

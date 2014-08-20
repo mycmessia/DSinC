@@ -5,7 +5,7 @@
 
 #define MAX_QUEUE_SIZE 100
 
-void addq(node_pointer ptr);
-node_pointer deleteq();
+void addq(tree_pointer ptr);
+tree_pointer deleteq();
 
 #endif

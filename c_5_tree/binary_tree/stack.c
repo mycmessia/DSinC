@@ -1,14 +1,16 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "stack.h"
 
-element stack[MAX_STACK_SIZE];
+tree_pointer stack[MAX_STACK_SIZE];
 int top = -1;
 
-element is_empty(void)
+tree_pointer is_empty(void)
 {
 	fprintf(stderr, "stack is empty, delete failed.\n");
-	element err_empty = {-1};
-	return err_empty;
+	tree_pointer ptr = malloc(sizeof(tree_pointer));
+	ptr->data = 1;
+	return ptr;
 }
 
 void is_full(void)
@@ -17,7 +19,7 @@ void is_full(void)
 	return;
 }
 
-void add(element item)
+void add(tree_pointer item)
 {
 	if (top == MAX_STACK_SIZE - 1)
 	{
@@ -27,7 +29,7 @@ void add(element item)
 	stack[++top] = item;
 }
 
-element delete(void)
+tree_pointer delete(void)
 {
 	if (top < 0)
 	{
@@ -43,6 +45,6 @@ void print_stack(void)
 
 	for (i = 0; i <= top; i++)
 	{
-		printf("stack[%d].key = %d\n", i, stack[i].key);
+		printf("stack[%d]->data = %d\n", i, stack[i]->data);
 	}
 }
