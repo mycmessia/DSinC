@@ -6,6 +6,5 @@ main.o: stack.h
 
 clean: 
 	-rm *.o
-	-rm *out
-
+	-rm *.out
 .PHONY: clean

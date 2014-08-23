@@ -8,4 +8,5 @@ one_way_linked_list.o: one_way_linked_list.h
 clean:
 	-rm *.o
 	-rm *.out
+	-rm -rf *.out.dSYM
 .PHONY: clean
