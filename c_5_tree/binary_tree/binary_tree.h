@@ -4,8 +4,12 @@
 typedef struct _node *tree_pointer;
 typedef struct _node {
 	int data;
+	int is_added;
 	tree_pointer left_child, right_child;
 } node;
+
+tree_pointer new_node(int data);
+tree_pointer create_tree(void);
 
 void inorder(tree_pointer ptr);
 void preorder(tree_pointer ptr);

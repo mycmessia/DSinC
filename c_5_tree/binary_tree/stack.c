@@ -8,9 +8,7 @@ int top = -1;
 tree_pointer is_empty(void)
 {
 	fprintf(stderr, "stack is empty, delete failed.\n");
-	tree_pointer ptr = malloc(sizeof(tree_pointer));
-	ptr->data = 1;
-	return ptr;
+	return NULL;
 }
 
 void is_full(void)
@@ -25,7 +23,8 @@ void add(tree_pointer item)
 	{
 		return is_full();
 	}
-
+	
+	item->is_added = 1;
 	stack[++top] = item;
 }
 

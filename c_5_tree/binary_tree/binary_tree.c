@@ -4,6 +4,40 @@
 #include "queue.h"
 #include "binary_tree.h"
 
+tree_pointer new_node(int data)
+{
+	tree_pointer ptr = (tree_pointer) malloc(sizeof(node));
+	if (IS_FULL(ptr))
+	{
+		fprintf(stderr, "The memory is full.\n");
+		exit(1);
+	}
+	else
+	{
+		ptr->data = data;
+		ptr->is_added = 0;
+		ptr->left_child = NULL;
+		ptr->right_child = NULL;
+	}
+	
+	return ptr;
+}
+
+tree_pointer create_tree(void)
+{
+	tree_pointer root = new_node(1);
+	root->left_child = new_node(2);
+	root->right_child = new_node(3);
+
+	root->left_child->left_child = new_node(4);
+	root->left_child->right_child = new_node(5);
+
+	root->right_child->left_child = new_node(6);
+	root->right_child->right_child = new_node(7);
+
+	return root;
+}
+
 void inorder(tree_pointer ptr)
 {
 	if (ptr)
@@ -107,7 +141,7 @@ void iter_postorder(tree_pointer ptr)
 int is_added(tree_pointer ptr)
 {
 	//TODO finish the func
-	return 1;	
+	return !(ptr->is_added);
 }
 
 void level_order(tree_pointer ptr)
@@ -140,7 +174,7 @@ tree_pointer copy(tree_pointer original)
 		temp = (tree_pointer) malloc(sizeof(node));
 		if (IS_FULL(temp))
 		{
-			fprintf(stderr, "The memory is full.\n");
+			fprintf(stderr, "The memory is full.");
 			exit(1);
 		}
 		temp->left_child = copy(original->left_child);
