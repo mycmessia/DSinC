@@ -140,7 +140,6 @@ void iter_postorder(tree_pointer ptr)
 /* check if the ptr has been added to the stack */
 int is_added(tree_pointer ptr)
 {
-	//TODO finish the func
 	return !(ptr->is_added);
 }
 

@@ -11,6 +11,43 @@ threaded_pointer insucc(threaded_pointer tree)
 	return temp;
 }
 
+threaded_pointer presucc(threaded_pointer tree)
+{
+	//TODO This func may have bug.
+	if (!tree->left_thread)
+		return tree->left_child;
+	else
+		return tree->right_child;	
+}
+
+threaded_pointer postsucc(threaded_pointer tree)
+{
+	//TODO finish the func, I have no idea.
+}
+
+void tinorder(threaded_pointer tree)
+{
+	threaded_pointer temp = tree;
+
+	for (;;)
+	{
+		temp = insucc(tree);
+		if (temp == tree) break;
+		printf("%3d", temp->data);
+	}
+	printf("\n");
+}
+
+void tpreorder(threaded_pointer tree)
+{
+	//TODO finish the func, I have no idea.
+}
+
+void tpostorder(thread_pointer tree)
+{
+	//TODO finish the func, I have no idea.
+}
+
 void insert_right(threaded_pointer parent, threaded_pointer child)
 {
 	threaded_pointer temp;
