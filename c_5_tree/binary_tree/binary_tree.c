@@ -227,3 +227,28 @@ int count(tree_pointer ptr)
 
 	return sum;
 }
+
+int map_index[256];
+void map2index(int inorder[], int n)
+{
+	int i;
+	for (i = 0; i < n; i++)
+		map_index[inorder[i]] = i;
+}
+
+/* n is the count of node, offset is the start of child tree */
+tree_pointer build_inorder_preorder(int pre[], int n, int offset)
+{
+	if (!n) return NULL;
+	int root_data = pre[0];
+	int i = map_index[root_data] - offset;
+	tree_pointer root = new_node(root_data);
+	root->left_child = build_inorder_preorder(pre + 1, i, offset);
+	root->right_child = build_inorder_preorder(pre + i + 1, n - i - 1, offset + i + 1);
+	return root;
+}
+
+//TODO
+tree_pointer bulid_inorder_postorder(int post[], int n, int offset)
+{
+}

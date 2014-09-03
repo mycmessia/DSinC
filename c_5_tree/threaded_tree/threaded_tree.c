@@ -1,4 +1,80 @@
+#include <stdlib.h>
 #include "threaded_tree.h"
+
+threaded_pointer new_node(int data)
+{
+	tree_pointer ptr = (threaded_pointer) malloc(sizeof(node));
+	if (IS_FULL(ptr))
+	{
+		fprintf(stderr, "The memory is full.\n");
+		exit(1);
+	}
+	else
+	{
+		ptr->data = data;
+		ptr->is_added = 0;
+		ptr->left_child = NULL;
+		ptr->right_child = NULL;
+	}
+	
+	return ptr;
+}
+
+threaded_pointer create_tree(void)
+{
+	threaded_pointer root = new_node(1);
+	root->left_child = new_node(2);
+	root->right_child = new_node(3);
+
+	root->left_child->left_child = new_node(4);
+	root->left_child->right_child = new_node(5);
+
+	root->right_child->left_child = new_node(6);
+	root->right_child->right_child = new_node(7);
+
+	return root;
+}
+
+thread_pointer create_inorder_ttree(thread_pointer node)
+{
+	thread_pointer root = malloc(sizeof(threaded_tree));
+	root->left_child = node;
+	root->left_thread = 0;
+	root->right_child = root;	
+	root->right_thread = 0;
+
+	thread_pointer pre = root;
+	thread_pointer tmp = NULL;	
+	
+	for (;;)
+	{
+		for (; node; node = node->left_child)
+			add(node);
+		node = delete();
+		if (!node) break;
+		if (!node->left_child)
+		{
+			node->left_child = pre;
+			node->left_thread = 1;
+		}
+		else
+			node->left_thread = 0;
+		pre = node;
+
+		if (!node->right_child)
+		{
+			tmp = insucc(node);
+			node->right_child = tmp == node ? root : tmp;;
+			node->right_thread = 1;
+			node = NULL;
+		}
+		else
+		{
+			node->right_thread = 0;
+			node = node->right_child;
+		}
+	}
+}
 
 threaded_pointer insucc(threaded_pointer tree)
 {
