@@ -8,6 +8,9 @@ typedef struct _node {
 	tree_pointer left_child, right_child;
 } node;
 
+tree_pointer new_node(int data);
+tree_pointer create_tree(void);
+
 void inorder(tree_pointer ptr);
 void preorder(tree_pointer ptr);
 void postorder(tree_pointer ptr);
@@ -27,4 +30,6 @@ int equal(tree_pointer first, tree_pointer second);
 int count(tree_pointer ptr);
 void swap_tree(tree_pointer);
 
+void map2index(int inorder[], int n);
+tree_pointer build_inorder_preorder(int pre[], int n, int offset);
 #endif
