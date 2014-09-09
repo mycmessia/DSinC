@@ -11,6 +11,8 @@ typedef struct _node {
 node_pointer new_node(int vertex);
 
 /* create a adjacency list from two-dimensional matrix */
-void create_adj_list(void);
+void create_adj_list(int matrix[][3]);
+
+node_pointer read_adj_list(void);
 
 #endif

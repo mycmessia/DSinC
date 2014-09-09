@@ -23,7 +23,7 @@ node_pointer new_node(int vertex)
 }
 
 /* TODO pass a two-dimensional array pointer as parameter */
-void create_adj_list(void)
+void create_adj_list(int matrix[][3])
 {
 	int i, j;
 	node_pointer temp;
@@ -34,8 +34,28 @@ void create_adj_list(void)
 		temp = graph[i];
 		for (j = 0; j < 3; j++)
 		{
-			temp->link = new_node(matrix1[i][j]);
+			temp->link = new_node(matrix[i][j]);
 			temp = temp->link;
 		}
 	}
+}
+
+node_pointer read_adj_list(void)
+{
+	node_pointer adj_list[MAX_VERTICES];
+	int vertices, edge_v_1, edge_v_2;
+	int i;
+	char ans;
+
+	printf("please input number of vertices of adj_list:\n");
+	scanf("%d", vertices);
+	
+	for (i = 0; i < verticess; i++)
+	{
+		adj_list[i] = new_node(i);
+	}
+
+	do {
+		
+	} while (ans == 'y')
 }
