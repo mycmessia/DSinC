@@ -4,6 +4,7 @@
 typedef struct _node *tree_pointer;
 typedef struct _node {
 	int data;
+	int is_added;
 	tree_pointer left_child, right_child;
 } node;
 
