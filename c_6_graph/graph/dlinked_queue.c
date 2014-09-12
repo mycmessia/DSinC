@@ -5,7 +5,7 @@
 
 queue_pointer front[MAX_QUEUE], rear[MAX_QUEUE];
 
-void addq(queue_pointer *front, queue_pointer *rear, element item)
+void addq(queue_pointer *front, queue_pointer *rear, int  vertex)
 {
 	/* add an element to the rear of the queue */
 	queue_pointer temp = (queue_pointer) malloc(sizeof(queue));
@@ -16,7 +16,7 @@ void addq(queue_pointer *front, queue_pointer *rear, element item)
 		return;
 	}
 
-	temp->item = item;
+	temp->vertex = vertex;
 	temp->link = NULL;
 	if (*front) (*rear)->link = temp;
 	else *front = temp;
@@ -24,21 +24,21 @@ void addq(queue_pointer *front, queue_pointer *rear, element item)
 	*rear = temp;
 }
 
-element deleteq(queue_pointer *front)
+int deleteq(queue_pointer *front)
 {
 	/* delete an element from the front of the queue */
 	queue_pointer temp = *front;
-	element item;
+	int vertex = -1;
 	
-	if (IS_EMPTY(*front))
+	if (IS_QUEUE_EMPTY(*front))
 	{
 		fprintf(stderr, "The queue is empty.\n");
-		return item;
+		return vertex;
 	}
 
-	item = temp->item;
+	vertex = temp->vertex;
 	*front = temp->link;
 	free(temp);
 	
-	return item;
+	return vertex;
 }
