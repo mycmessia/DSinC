@@ -35,16 +35,17 @@ threaded_pointer create_tree(void)
 	return root;
 }
 
-thread_pointer create_inorder_ttree(thread_pointer node)
+/* create a inorder threaded tree use a binary tree */
+threaded_pointer create_inorder_ttree(tree_pointer node)
 {
-	thread_pointer root = malloc(sizeof(threaded_tree));
+	threaded_pointer root = malloc(sizeof(threaded_tree));
 	root->left_child = node;
 	root->left_thread = 0;
 	root->right_child = root;	
 	root->right_thread = 0;
 
-	thread_pointer pre = root;
-	thread_pointer tmp = NULL;	
+	threaded_pointer pre = root;
+	threaded_pointer tmp = NULL;	
 	
 	for (;;)
 	{
@@ -87,20 +88,6 @@ threaded_pointer insucc(threaded_pointer tree)
 	return temp;
 }
 
-threaded_pointer presucc(threaded_pointer tree)
-{
-	//TODO This func may have bug.
-	if (!tree->left_thread)
-		return tree->left_child;
-	else
-		return tree->right_child;	
-}
-
-threaded_pointer postsucc(threaded_pointer tree)
-{
-	//TODO finish the func, I have no idea.
-}
-
 void tinorder(threaded_pointer tree)
 {
 	threaded_pointer temp = tree;
@@ -112,16 +99,6 @@ void tinorder(threaded_pointer tree)
 		printf("%3d", temp->data);
 	}
 	printf("\n");
-}
-
-void tpreorder(threaded_pointer tree)
-{
-	//TODO finish the func, I have no idea.
-}
-
-void tpostorder(thread_pointer tree)
-{
-	//TODO finish the func, I have no idea.
 }
 
 void insert_right(threaded_pointer parent, threaded_pointer child)
