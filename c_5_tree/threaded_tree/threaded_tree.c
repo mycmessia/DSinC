@@ -1,9 +1,11 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include "stack.h"
 #include "threaded_tree.h"
 
 threaded_pointer new_node(int data)
 {
-	tree_pointer ptr = (threaded_pointer) malloc(sizeof(node));
+	threaded_pointer ptr = (threaded_pointer) malloc(sizeof(threaded_node));
 	if (IS_FULL(ptr))
 	{
 		fprintf(stderr, "The memory is full.\n");
@@ -35,10 +37,10 @@ threaded_pointer create_tree(void)
 	return root;
 }
 
-/* create a inorder threaded tree use a binary tree */
-threaded_pointer create_inorder_ttree(tree_pointer node)
+/* create a inorder threaded tree */
+threaded_pointer create_inorder_ttree(threaded_pointer node)
 {
-	threaded_pointer root = malloc(sizeof(threaded_tree));
+	threaded_pointer root = malloc(sizeof(threaded_node));
 	root->left_child = node;
 	root->left_thread = 0;
 	root->right_child = root;	

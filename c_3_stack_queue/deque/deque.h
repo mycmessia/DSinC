@@ -1,5 +1,5 @@
-#ifndef QUEUE
-#define QUEUE
+#ifndef DQUEUE
+#define DQUEUE
 
 #define MAX_QUEUE_SIZE 2
 
